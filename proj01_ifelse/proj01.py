@@ -1,5 +1,5 @@
-# Name:
-# Date:
+# Name: Elizabeth Sims
+# Date: 7/9/18
 
 # proj01: A Simple Program
 
@@ -8,33 +8,31 @@
 #Then, it prints out a sentence that says the number of years until they graduate.
 
 #var name
-user_name = raw_input("What is your name? ")
-# user_grade = raw_input("What grade are you in? ")
-# user_years = 12 - int(user_grade)
-#
-# #display years
-# if int(user_years) == 1:
-#     print user_name + ", you will graduate in", (user_years), "year."
-# elif int(user_years) == 0:
-#     print user_name + ", you will graduate this year."
-# elif int(user_years) < 0:
-#     print user_name + ", you have already graduated."
-# elif int(user_years) > 11:
-#     print user_name + ", that is not a real grade!"
-# else:
-#     print user_name + ", you will graduate in", (user_years), "years."
+user_name = raw_input("What is your name? ").capitalize()
+user_grade = raw_input("What grade are you in? ")
+user_years = 12 - int(user_grade)
+user_bmonth = raw_input("What is your month of birth? ")
+user_bday = raw_input("What is your day of birth? ")
+user_age = raw_input("How old are you? ")
+current_month = 7
+current_day = 9
 
+#display years
+if int(user_years) == 1:
+    print user_name + ", you will graduate in", (user_years), "year."
+elif int(user_years) == 0:
+    print user_name + ", you will graduate this year."
+elif int(user_years) < 0:
+    print user_name + ", you have already graduated."
+elif int(user_years) > 11:
+    print user_name + ", that is not a real grade!"
+else:
+    print user_name + ", you will graduate in", (user_years), "years."
 
 
 # Part II:
 # This program asks the user for his/her name and birth month.
 # Then, it prints a sentence that says the number of days and months until their birthday
-
-#var name
-user_bmonth = raw_input("What is your month of birth? ")
-user_bday = raw_input("What is your day of birth? ")
-current_month = 7
-current_day = 9
 
 #define month and day distance
 if int(user_bmonth) >= current_month and int(user_bday) >= current_day:
@@ -62,9 +60,17 @@ else:
 
 #print message
 if bday == False:
-    print user_name, ", your birthday is in", month_distance, "months and", day_distance, "days."
+    print "Your birthday is in", month_distance, "months and", day_distance, "days."
 else:
-    print "Happy birthday,", user_name, "!"
+    print "Happy birthday, " + user_name + "!"
+
+
+if int(user_age) >= 13:
+    print "You can watch PG-13 movies."
+if int(user_age) >= 16:
+    print "You can drive."
+if int(user_age) >= 18:
+    print "You can watch R rated movies."
 
 
 # If you complete extensions, describe your extensions here!
