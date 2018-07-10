@@ -1,5 +1,5 @@
-# Name:
-# Date:
+# Name: Elizabeth
+# Date: 7/10/18
 
 # proj02: sum
 
@@ -17,3 +17,16 @@
 # Enter a number to sum, or 0 to indicate you are finished: 10
 # Enter a number to sum, or 0 to indicate you are finished: 0
 #The sum of your numbers is: 21
+
+#define variable
+current_sum = 0
+
+#loop
+while True:
+    current_number = int(raw_input("Enter a number to sum, or 0 to indicate that you are finished: "))
+    current_sum = current_sum + current_number
+    if current_number == 0:
+        print "The sum of your numbers is:", current_sum
+        break
+
+
