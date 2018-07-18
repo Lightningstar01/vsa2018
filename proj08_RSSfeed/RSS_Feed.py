@@ -57,7 +57,7 @@ class NewsStory(object):
         * summary
         * link
     """
-    def __init__(self, guid):
+    def __init__(self, guid, title, subject, summary, link):
         """
         Returns a NewsStory object with the following attributes
         :param guid: a string that serves as a unique name for this entry 
@@ -67,9 +67,21 @@ class NewsStory(object):
         :param link: string     
         """
         self.guid = guid
+        self.title = title
+        self.subject = subject
+        self.summary = summary
+        self.link = link
 
     def get_guid(self):
         return self.guid
+    def get_title(self):
+        return self.title
+    def get_subject(self):
+        return self.subject
+    def get_summary(self):
+        return self.summary
+    def get_link(self):
+        return self.link
 
 # Your job is to write functions for the other 4 attributes.
 
@@ -94,6 +106,25 @@ class Trigger(object):
 # Problems 2-5
 
 # TODO: WordTrigger
+
+class WordTrigger(Trigger):
+    def __init__(self, word):
+        self.word = word
+
+    def is_word_in(self, given_string):
+        given_string = given_string.lower()
+        self.word = self.word.lower()
+        for p in string.punctuation:
+            given_string = given_string.replace(p, " ")
+        given_string = given_string.split(" ")
+        for word in given_string:
+            if word == self.word:
+                return True
+        return False
+
+
+
+
 
 # Create a class, WordTrigger, that is a subclass of trigger.
 
@@ -124,6 +155,17 @@ class Trigger(object):
 # TODO: SubjectTrigger
 # TODO: SummaryTrigger
 
+class TitleTrigger(WordTrigger):
+    def evaluate(self, story):
+        return self.is_word_in(story.get_title())
+
+class SubjectTrigger(WordTrigger):
+    def evaluate(self, story):
+        return self.is_word_in(story.get_subject())
+
+class SummaryTrigger(WordTrigger):
+    def evaluate(self, story):
+        return self.is_word_in(story.get_summary())
 
 # Composite Triggers
 # Problems 6-8
@@ -136,6 +178,31 @@ class Trigger(object):
 # TODO: AndTrigger
 # TODO: OrTrigger
 
+class NotTrigger(Trigger):
+    def __init__(self, trigger):
+        self.trigger = trigger
+
+    def evaluate(self, story):
+        return not self.trigger.evaluate(story)
+
+class AndTrigger(Trigger):
+    def __init__(self, trigger1, trigger2):
+        self.trigger1 = trigger1
+        self.trigger2 = trigger2
+
+    def evaluate(self, story):
+        return self.trigger1.evaluate(story) and self.trigger2.evaluate(story)
+
+class OrTrigger(Trigger):
+    def __init__(self, trigger1, trigger2):
+        self.trigger1 = trigger1
+        self.trigger2 = trigger2
+
+    def evaluate(self, story):
+        return self.trigger1.evaluate(story) or self.trigger2.evaluate(story)
+
+
+
 
 # Phrase Trigger
 # Question 9
@@ -144,6 +211,14 @@ class Trigger(object):
 # method.
 # TODO: PhraseTrigger
 
+class PhraseTrigger(Trigger):
+    def __init__(self, phrase):
+        self.phrase = phrase
+
+    def evaluate(self, story):
+        return self.phrase in story.get_subject() or self.phrase in story.get_summary() or self.phrase in story.get_title()
+
+
 
 #======================
 # Part 3
@@ -151,6 +226,14 @@ class Trigger(object):
 #======================
 
 def filter_stories(stories, triggerlist):
+    ret_list = []
+    for s in stories:
+        for t in triggerlist:
+            if t.evaluate(s) is True:
+                ret_list.append(s)
+                break
+    return ret_list
+
     """
     Takes in a list of NewsStory-s.
     Returns only those stories for whom
@@ -159,7 +242,7 @@ def filter_stories(stories, triggerlist):
     # TODO: Problem 10
     # This is a placeholder (we're just returning all the stories, with no filtering) 
     # Feel free to change this line!
-    return stories
+
 
 #======================
 # Extensions: Part 4
