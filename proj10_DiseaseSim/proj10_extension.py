@@ -1,7 +1,7 @@
 # proj10_extension
 #
-# Name:
-# Date:
+# Name: Elizabeth Sims
+# Date: 7/23/18
 
 
 
@@ -20,6 +20,10 @@ class ResistantVirus(SimpleVirus):
     """      
 
     def __init__(self, maxBirthProb, clearProb, resistances, mutProb):
+        self.maxBirthProb = maxBirthProb
+        self.clearProb = clearProb
+        self.resistances = resistances
+        self.mutProb = mutProb
 
         """
 
@@ -45,8 +49,15 @@ class ResistantVirus(SimpleVirus):
 
 
     def isResistantTo(self, drug):
+        if self.resistances(drug) is True:
+            return True
+        else:
+            return False
 
-        """
+
+
+
+"""
         Get the state of this virus particle's resistance to a drug. This method
         is called by getResistPop() in Patient to determine how many virus
         particles have resistance to a drug.    
